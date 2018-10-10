@@ -44,7 +44,7 @@ class ClickableImage(QtGui.QLabel):
         size_policy_im = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Maximum)
         # Resize the wait_image so that it keeps the same size whatever the screen resolution is
         if wait_image:
-            if FULLSCREEN:
+            if self.isFullScreen():
                 screen_h = QDesktopWidget().screenGeometry().height()
             else:
                 screen_h = MAIN_WINDOW_HEIGHT
@@ -60,14 +60,14 @@ class ClickableImage(QtGui.QLabel):
     def set_reactivity(self, reactivity):
         self.is_reactive = reactivity
 
-    def setimage(self,image_path):
+    def setimage(self, image_path):
         """ Load an image, rescale it and put it in the Qt label """
         self.image.load(image_path)                          # Load image
-        pixmap = QtGui.QPixmap(self.image);            # Get pixmap
-        if FULLSCREEN:
-            screenW     = QDesktopWidget().screenGeometry().width()
+        pixmap = QtGui.QPixmap(self.image)            # Get pixmap
+        if self.isFullScreen():
+            screenW = QDesktopWidget().screenGeometry().width()
         else:
-            screenW     = MAIN_WINDOW_WIDTH
+            screenW = MAIN_WINDOW_WIDTH
         # Rescale pixmap given the main window size and keep aspect ratio
         scaled_pixmap = pixmap.scaledToWidth(screenW/RATIO_SCREEN_W_IMAGE_W)
         self.setPixmap(scaled_pixmap)
@@ -175,7 +175,7 @@ class TestView(QtGui.QWidget):
         layout.setContentsMargins(20, 20, 20, 20)
 
         # Get the height of the widget
-        screen_h = QDesktopWidget().screenGeometry().height() if FULLSCREEN else MAIN_WINDOW_HEIGHT
+        screen_h = QDesktopWidget().screenGeometry().height() if self.isFullScreen() else MAIN_WINDOW_HEIGHT
                 
         # Top Horizontal Layout (with Home Button)
         top_hori_layout = QtGui.QHBoxLayout()
@@ -531,7 +531,7 @@ class TestView(QtGui.QWidget):
         self.audio_media.play()
 
     def set_image_feedback(self, correct_response):
-        screen_h = QDesktopWidget().screenGeometry().height() if FULLSCREEN else MAIN_WINDOW_HEIGHT
+        screen_h = QDesktopWidget().screenGeometry().height() if self.isFullScreen() else MAIN_WINDOW_HEIGHT
         if correct_response:
             self.im_feedback.setPixmap(QtGui.QPixmap(IM_POSITIF_FEEDBACK).scaledToHeight(int(screen_h*IMAGE_FEEDBACK_PROP_H)))
             # self.im_feedback.setPixmap(QtGui.QPixmap(IM_POSITIF_FEEDBACK))
@@ -547,7 +547,7 @@ class TestView(QtGui.QWidget):
             im_target = os.path.join(IMAGE_FAM_DIR, '{}{}'.format(obj_target, IMAGE_FORMAT))
         elif 'new' in self.condition:
             im_target = os.path.join(IMAGE_NEW_DIR, '{}{}'.format(obj_target, IMAGE_FORMAT))
-        screen_h = QDesktopWidget().screenGeometry().height() if FULLSCREEN else MAIN_WINDOW_HEIGHT
+        screen_h = QDesktopWidget().screenGeometry().height() if self.isFullScreen() else MAIN_WINDOW_HEIGHT
         self.im_feedback.setPixmap(QtGui.QPixmap(im_target).scaledToHeight(int(screen_h*0.4)))
         self.audio_media.setCurrentSource(Phonon.MediaSource(CORRECT_IM_SHOW_AUDIOPATH))
         self.audio_media.play()

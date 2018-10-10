@@ -11,7 +11,8 @@ SOFT_NAME = "Dana Soft"
 DATA_PATH = r'C:\Users\deudon\Desktop\M4\ProjetDanae\DanaSoft\data'
 
 ################ Soft Rules ##################
-FULLSCREEN = 1        # If 1 fullscreen
+
+# FULLSCREEN = 1        # If 1 fullscreen
 # Waiting time for visual mode
 TEST_CONTINUE_DELAY = 4000
 TEST_CONTINUE_DELAY_SCRAMBLED_2Y = 9500

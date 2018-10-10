@@ -101,11 +101,11 @@ class TrainingView(QWidget):
         self.setLayout(layout)
         layout.setContentsMargins(20, 20, 20, 20)
         
-        if FULLSCREEN:
+        if self.isFullScreen():
             screen_H = QDesktopWidget().screenGeometry().height()
         else:
             screen_H = MAIN_WINDOW_HEIGHT
-            
+
         # Top Horizontal Layout (with Home Button)
         hori_layout = QtGui.QHBoxLayout()
         hori_layout.setSizeConstraint(QLayout.SetDefaultConstraint)

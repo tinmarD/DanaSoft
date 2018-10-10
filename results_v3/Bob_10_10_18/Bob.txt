@@ -1,0 +1,29 @@
+Name,Bob
+Age,15 mois
+Sex,M
+Date,15 Avr 2015
+Familiar Object #1,marteau
+Familiar Object #2,cuillere
+Familiar Object #3,tasse
+New Object #1,dinosaure_orange_lupa
+New Object #2,ours_kilu
+New Object #3,monstre_vert_pite
+
+
+------- Training Parameters Fam-------
+Object at each position FAM,-3 -2 -1;-2 -1 -3;-1 -3 -2;
+Position of the 3 objects FAM,3 2 1;2 1 3;1 3 2;
+Target object FAM,-2;-3;-1;
+Position of target object FAM,2;3;1;
+
+------- Test Parameters Fam-------
+Object at each position FAM,-1 -3 -2;-3 -2 -1;-2 -1 -3;-1 -3 -2;-3 -2 -1;-2 -1 -3;
+Position of the 3 objects FAM,1 3 2;3 2 1;2 1 3;1 3 2;3 2 1;2 1 3;
+Target object FAM,-3;-3;-1;-2;-1;-2;
+Position of target object FAM,2;1;2;3;3;1;
+
+------- Test Parameters New-------
+Object at each position NEW,2 1 3;1 3 2;3 2 1;2 1 3;1 3 2;3 2 1;2 1 3;1 3 2;3 2 1;
+Position of the 3 objects NEW,2 1 3;1 3 2;3 2 1;2 1 3;1 3 2;3 2 1;2 1 3;1 3 2;3 2 1;
+Target object NEW,2;3;2;3;1;3;1;2;1;
+Position of target object NEW,1;2;2;3;1;1;2;3;3;

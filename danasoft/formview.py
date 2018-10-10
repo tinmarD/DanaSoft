@@ -52,7 +52,7 @@ class FormView(QtGui.QWidget):
     form_over_sig = QtCore.pyqtSignal(object)
     exit_form_sig = QtCore.pyqtSignal()
     
-    def __init__(self):
+    def __init__(self, fill_subject):
         self.version = []
         self.soft_rules = []
 
@@ -115,18 +115,18 @@ class FormView(QtGui.QWidget):
         self.new_object3_ledit.setCompleter(completer_new)
         form_layout.addRow("New Object #3", self.new_object3_ledit)
         
-        # ##### TO comment #####
-        # self.sub_name_ledit.setText("Bob")
-        # self.date_ledit.setText("15 Avr 2015")
-        # self.age_ledit.setText("15 mois")
-        # self.sex_ledit.setText("M")
-        # self.fam_obj2_cb.setCurrentIndex(1)
-        # self.fam_obj3_cb.setCurrentIndex(2)
-        # self.new_object1_ledit.setText("dinosaure_orange_lupa")
-        # self.new_object2_ledit.setText("ours_kilu")
-        # self.new_object3_ledit.setText("monstre_vert_pite")
-        # ##### TO comment #####
-        
+        # If full_subject is True, fill subject info
+        if fill_subject:
+            self.sub_name_ledit.setText("Bob")
+            self.date_ledit.setText("15 Avr 2015")
+            self.age_ledit.setText("15 mois")
+            self.sex_ledit.setText("M")
+            self.fam_obj2_cb.setCurrentIndex(1)
+            self.fam_obj3_cb.setCurrentIndex(2)
+            self.new_object1_ledit.setText("dinosaure_orange_lupa")
+            self.new_object2_ledit.setText("ours_kilu")
+            self.new_object3_ledit.setText("monstre_vert_pite")
+
         # Create subject button
         start_layout = QHBoxLayout()
         spacer_item_left = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)

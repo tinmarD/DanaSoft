@@ -37,7 +37,7 @@ class MainWindow(QMainWindow):
             - resultsFIle     : File ID where all the results are saved.
             
     """
-    def __init__(self, app):
+    def __init__(self, app, fill_subject):
         self.app = app
         self.version = []
         self.response_ver = []
@@ -45,7 +45,7 @@ class MainWindow(QMainWindow):
 
         QMainWindow.__init__(self)
         self.startup_view = StartupView()
-        self.form_view = FormView()
+        self.form_view = FormView(fill_subject)
         self.training_view = TrainingView()
         self.test_view = TestView()
         self.version_sel_view = VersionSelectionView()
