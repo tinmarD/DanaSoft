@@ -43,11 +43,11 @@ GUI_TEST            = 4
 GUI_RESULTS         = 5
 
 # GUI - TEST View
-RATIO_SCREEN_W_IMAGE_W = 3.5   # The test images will have the width of the main window divided by this value
-RATIO_SCREEN_H_WAITIMAGE_H = 5     # Ratio between the height of the screen and the height of the wait image
-RATIO_SCREEN_H_ANIMATION_H = 2     # Ratio between the height of the screen and the height of the animation
-TEST_IMAGE_SPACING_HORI_FACTOR = 3  # Increase this value to increase the spacing between the 2 bottom test images
-RATIO_SCREEN_H_VERT_SPACING_TEST = 20 #Decrease this value to increase the spacing between the top test image and the 2 bottom test images
+RATIO_SCREEN_W_IMAGE_W = 3.5          # The test images will have the width of the main window divided by this value
+RATIO_SCREEN_H_WAITIMAGE_H = 5        # Ratio between the height of the screen and the height of the wait image
+RATIO_SCREEN_H_ANIMATION_H = 2        # Ratio between the height of the screen and the height of the animation
+TEST_IMAGE_SPACING_HORI_FACTOR = 3    # Increase this value to increase the spacing between the 2 bottom test images
+RATIO_SCREEN_H_VERT_SPACING_TEST = 20 # Decrease this value to increase the spacing between the top test image and the 2 bottom test images
 
 # Training videos
 VIDEO_FAM_DIR = os.path.join(DATA_PATH, 'videos', 'FAM')
@@ -112,7 +112,7 @@ def load_soft_rules(version):
         soft_rules['WAIT_GOOD_RESPONSE_TEST_FAM'] = 1  # If 1, during the FAM testing, continue only if the response is correct
         soft_rules['WAIT_GOOD_RESPONSE_NEW'] = 0  # If 1, during the FAM testing, continue only if the response is correct
         # TEST PARAMETERS
-        soft_rules['N_TEST_FAM'] = 6              # Must be multiple of 3
+        soft_rules['N_TEST_FAM'] = 3              # Must be multiple of 3
         soft_rules['N_TEST_NEW'] = 9              # Must be multiple of 3
         soft_rules['SAME_POS_ROW_TEST_MAX'] = 1                   # Object cannot appear in the same position more than SAME_POS_TEST_MAX times in a row
         soft_rules['SAME_TARGET_POS_TEST_MAX_ROW'] = 2               # Target cannot appear at the same position more than SAME_TARGET_POS_TEST_MAX_ROW times in a row
@@ -136,16 +136,16 @@ def load_soft_rules(version):
     elif version == 'explicit-1rep':
         # TEST PARAMETERS
         soft_rules['WAIT_GOOD_RESPONSE_TEST_FAM'] = 1  # If 1, during the FAM testing, continue only if the response is correct
-        soft_rules['N_TEST_FAM'] = 6              # Must be multiple of 3
+        soft_rules['N_TEST_FAM'] = 3              # Must be multiple of 3
         soft_rules['N_TEST_NEW'] = 9              # Must be multiple of 3
         soft_rules['SAME_POS_ROW_TEST_MAX'] = 1                      # Object cannot appear in the same position more than SAME_POS_TEST_MAX times in a row
         soft_rules['SAME_TARGET_POS_TEST_MAX_ROW'] = 2               # Target cannot appear at the same position more than SAME_TARGET_POS_TEST_MAX_ROW times in a row
         soft_rules['SAME_TARGET_TEST_MAX_ROW'] = 2                   # Target cannot be the same more than SAME_TARGET_MAX times in a row
         # TRAINING PARAMETERS
         # Number of repetition for each video
-        soft_rules['N_REPET_OBJ_TRAIN_FAM_1'] = 2
-        soft_rules['N_REPET_OBJ_TRAIN_FAM_2'] = 2
-        soft_rules['N_REPET_OBJ_TRAIN_FAM_3'] = 2
+        soft_rules['N_REPET_OBJ_TRAIN_FAM_1'] = 1
+        soft_rules['N_REPET_OBJ_TRAIN_FAM_2'] = 1
+        soft_rules['N_REPET_OBJ_TRAIN_FAM_3'] = 1
         soft_rules['N_REPET_OBJ_TRAIN_NEW_1'] = 1
         soft_rules['N_REPET_OBJ_TRAIN_NEW_2'] = 1
         soft_rules['N_REPET_OBJ_TRAIN_NEW_3'] = 1
@@ -162,7 +162,7 @@ def load_soft_rules(version):
         soft_rules['WAIT_GOOD_RESPONSE_TEST_FAM'] = 0   # If 1, during the FAM testing, continue only if the response is correct
         soft_rules['WAIT_GOOD_RESPONSE_TRAIN_FAM'] = 1  # If 1, during the FAM training, continue only if the response is correct
         soft_rules['WAIT_GOOD_RESPONSE_TRAIN_NEW'] = 1  # If 1, during the NEW training, continue only if the response is correct
-        soft_rules['N_TEST_FAM'] = 6              # Must be multiple of 3
+        soft_rules['N_TEST_FAM'] = 3              # Must be multiple of 3
         soft_rules['N_TEST_NEW'] = 9              # Must be multiple of 3
         soft_rules['SAME_POS_ROW_TEST_MAX'] = 1                      # Object cannot appear in the same position more than SAME_POS_TEST_MAX times in a row
         soft_rules['SAME_TARGET_POS_TEST_MAX_ROW'] = 2               # Target cannot appear at the same position more than SAME_TARGET_POS_TEST_MAX_ROW times in a row
@@ -176,13 +176,19 @@ def load_soft_rules(version):
         soft_rules['N_REPET_OBJ_TRAIN_NEW_1'] = 1
         soft_rules['N_REPET_OBJ_TRAIN_NEW_2'] = 3
         soft_rules['N_REPET_OBJ_TRAIN_NEW_3'] = 5
+        soft_rules['N_REPET_OBJ_TRAIN_NEW_FAM_1'] = 2
+        soft_rules['N_REPET_OBJ_TRAIN_NEW_FAM_2'] = 1
+        soft_rules['N_REPET_OBJ_TRAIN_NEW_FAM_3'] = 1
+        soft_rules['N_TRAIN_NEW'] = soft_rules['N_REPET_OBJ_TRAIN_NEW_1'] + soft_rules['N_REPET_OBJ_TRAIN_NEW_2'] + \
+                                    soft_rules['N_REPET_OBJ_TRAIN_NEW_3'] + soft_rules['N_REPET_OBJ_TRAIN_NEW_FAM_1'] + \
+                                    soft_rules['N_REPET_OBJ_TRAIN_NEW_FAM_2'] + soft_rules['N_REPET_OBJ_TRAIN_NEW_FAM_3']
 
     elif version in ['scrambled-2y', 'scrambled-4y']:
         # TEST PARAMETERS
         soft_rules['WAIT_GOOD_RESPONSE_TEST_FAM'] = 1   # If 1, during the FAM testing, continue only if the response is correct
         soft_rules['WAIT_GOOD_RESPONSE_TRAIN_FAM'] = 1  # If 1, during the FAM training, continue only if the response is correct
         soft_rules['WAIT_GOOD_RESPONSE_TRAIN_NEW'] = 1  # If 1, during the NEW training, continue only if the response is correct
-        soft_rules['N_TEST_FAM'] = 6              # Must be multiple of 3
+        soft_rules['N_TEST_FAM'] = 3              # Must be multiple of 3
         soft_rules['N_TEST_NEW'] = 9              # Must be multiple of 3
         soft_rules['SAME_POS_ROW_TEST_MAX'] = 1                      # Object cannot appear in the same position more than SAME_POS_TEST_MAX times in a row
         soft_rules['SAME_TARGET_POS_TEST_MAX_ROW'] = 2               # Target cannot appear at the same position more than SAME_TARGET_POS_TEST_MAX_ROW times in a row

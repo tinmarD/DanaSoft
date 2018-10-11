@@ -302,15 +302,16 @@ def createrandomsequence_train_fastmapping_new(sr):
     """ Use this function for creating the pseudo random sequence for the training on
     new objects using the fast-mapping approach
     """
-    # Check number of trials is a multiple of 3
-
-    n_trials = sr['N_REPET_OBJ_TRAIN_NEW_1'] + sr['N_REPET_OBJ_TRAIN_NEW_2'] + sr['N_REPET_OBJ_TRAIN_NEW_3']
-    if not n_trials / 3 == n_trials / 3.0:
-        raise ValueError("ERROR in subject:createrandomsequence_train_fastmapping_new n_trials should be a multiple of 3")
+    # n_trials = sr['N_REPET_OBJ_TRAIN_NEW_1'] + sr['N_REPET_OBJ_TRAIN_NEW_2'] + sr['N_REPET_OBJ_TRAIN_NEW_3'] + \
+    #            sr['N_REPET_OBJ_TRAIN_NEW_FAM_1'] + sr['N_REPET_OBJ_TRAIN_NEW_FAM_2'] + sr['N_REPET_OBJ_TRAIN_NEW_FAM_3'
+    # if not n_trials / 3 == n_trials / 3.0:
+    #     raise ValueError("ERROR in subject:createrandomsequence_train_fastmapping_new n_trials should be a multiple of 3")
+    n_trials = sr['N_TRAIN_NEW']
 
     # Target criteria : new object are identified by positive number, fam objects by negative ones
     obj_target = np.hstack((1*np.ones(sr['N_REPET_OBJ_TRAIN_NEW_1']), 2*np.ones(sr['N_REPET_OBJ_TRAIN_NEW_2']),
-                            3*np.ones(sr['N_REPET_OBJ_TRAIN_NEW_3']))).astype(int)
+                            3*np.ones(sr['N_REPET_OBJ_TRAIN_NEW_3']), -1*np.ones(sr['N_REPET_OBJ_TRAIN_NEW_FAM_1']),
+                            -2*np.ones(sr['N_REPET_OBJ_TRAIN_NEW_FAM_2']), -3*np.ones(sr['N_REPET_OBJ_TRAIN_NEW_FAM_3']))).astype(int)
     target_condition_met = False
     same_target = 1
     while not target_condition_met:
@@ -348,23 +349,36 @@ def createrandomsequence_train_fastmapping_new(sr):
             else:
                 target_pos_condition_met = True
         target_pos_count = np.array([np.sum(target_pos == i) for i in [1, 2, 3]])
-        # Criteria : the target must appear the same number of times at each position
-        if target_pos_count.max() > (n_trials / 3):
-            target_pos_condition_met = False
+        # # Criteria : the target must appear the same number of times at each position
+        # if target_pos_count.max() > (n_trials / 3):
+        #     target_pos_condition_met = False
     # Now that we have the target and its position for each trial, choose randomly familiar objects as distractor
     obj_in_pos = np.zeros((n_trials, 3))
     pos_of_obj = np.zeros((n_trials, 3))
     target_pos = target_pos.astype(int)
     rand_fam_vect = -np.array([1, 2, 3])
+    rand_new_vect = np.array([1, 2, 3])
     for i in range(0, n_trials):
         np.random.shuffle(rand_fam_vect)
+        np.random.shuffle(rand_new_vect)
+        new_obj_set = False  # is set to True when target is a familiar object and a new object has been added to the train set i
         for j in range(0, 3):
             if (target_pos[i] - 1) == j:
                 # Set the target at the right position
                 obj_in_pos[i, j] = obj_target[i]
             else:
-                obj_in_pos[i, j] = rand_fam_vect[j]
-
+                # if target is a FAM object
+                if obj_target[i] < 0:
+                    # set a new object if not done already
+                    if not new_obj_set:
+                        obj_in_pos[i, j] = rand_new_vect[j]
+                        new_obj_set = True
+                    # else set a familiar object which is not the target
+                    else:
+                        obj_in_pos[i, j] = rand_fam_vect[rand_fam_vect != obj_target[i]][0]
+                # target is a NEW object
+                else:
+                    obj_in_pos[i, j] = rand_fam_vect[j]
     # Return
     return obj_in_pos.astype(int), pos_of_obj.astype(int), obj_target.astype(int), target_pos.astype(int)
 
