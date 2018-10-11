@@ -5,8 +5,9 @@ Created on Tue Mar 22 17:06:07 2016
 @author: deudon
 """
 
-import sys
 import os
+import logging
+import datetime
 from PyQt4 import QtCore
 from PyQt4.QtGui import *
 from startupview import StartupView
@@ -37,8 +38,9 @@ class MainWindow(QMainWindow):
             - resultsFIle     : File ID where all the results are saved.
             
     """
-    def __init__(self, app, fill_subject):
+    def __init__(self, app, fullscreen, fill_subject):
         self.app = app
+        self.fullscreen = fullscreen
         self.version = []
         self.response_ver = []
         self.soft_rules = []
@@ -46,8 +48,8 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self)
         self.startup_view = StartupView()
         self.form_view = FormView(fill_subject)
-        self.training_view = TrainingView()
-        self.test_view = TestView()
+        self.training_view = TrainingView(fullscreen)
+        self.test_view = TestView(fullscreen)
         self.version_sel_view = VersionSelectionView()
 
         self.stacked_widget = QStackedWidget()
@@ -96,6 +98,7 @@ class MainWindow(QMainWindow):
         self.training_view.set_soft_rules(self.soft_rules)
         self.test_view.set_version(version, response_version)
         self.form_view.set_version(version)
+        logging.info('Version {} {}'.format(version, response_version))
         self.startup_view.set_title('DANA SOFT {} {}'.format(version, response_version))
         self.stacked_widget.setCurrentIndex(GUI_HOME)
 
@@ -104,9 +107,9 @@ class MainWindow(QMainWindow):
             subject_dirpath = self.subject.result_dir
             # Time log file
             self.time_log_file = open(os.path.join(subject_dirpath, TIME_LOG_FILE_NAME), 'w')
-            self.time_log_file.write(SOFT_NAME+"\n"+str(self.app_date.toString("dd_MM_yy"))+"\n")
             # Add the time of the Application start
-            self.time_log_file.write("\nApplication Start,"+str(self.app_time.toString("HH:mm:ss:zzz")))
+            self.time_log_file.write(SOFT_NAME+"\n"+str(self.app_date.toString("dd_MM_yy"))+"\n")
+            logging.info(SOFT_NAME+"\n"+str(self.app_date.toString("dd_MM_yy"))+"\n")
             # Results file
             self.result_file = open(os.path.join(subject_dirpath, RESULTS_FILE_NAME), 'w')
             self.result_file.write(SOFT_NAME+"\n"+str(self.app_date.toString("dd_MM_yy"))+"\n\n")
@@ -165,7 +168,6 @@ class MainWindow(QMainWindow):
             self.subject.write_test_sequence(novelty)
             # Add start of training to timeLog
             self.addtimeevent('\nTesting {} start'.format(novelty.upper()), None)
-            # self.test_view.set_condition(novelty)
         else:
             raise ValueError('Wrong condition : {} - Possibles values are [\'fam\' or \'new\']')
         self.result_file.write('\nTest{} START\n'.format(novelty.capitalize()))
@@ -185,7 +187,7 @@ class MainWindow(QMainWindow):
         quit_training = QMessageBox.question(conf_widget, SOFT_NAME, 'Stop the training ?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if quit_training == QMessageBox.Yes:
             self.training_view.stopvideo()
-            self.addtimeevent('---------- TRAINING ABORTED ----------',None)
+            self.addtimeevent('---------- TRAINING ABORTED ----------', None)
             self.stacked_widget.setCurrentIndex(GUI_HOME)
         else:
             self.training_view.playvideo()
@@ -225,6 +227,8 @@ class MainWindow(QMainWindow):
         self.app_time.start()
 
     def addtimeevent(self, event_description, event_opt):
+        time_log = datetime.datetime.now().strftime('%Hh%Mm%Ss-%f')[:-3]
+        logging.debug('{} - {}'.format(event_description, time_log))
         ms_elapsed = self.app_time.elapsed()
         time_elapsed = QtCore.QTime()
         time_elapsed = time_elapsed.addMSecs(ms_elapsed)
@@ -232,7 +236,6 @@ class MainWindow(QMainWindow):
             time_elapsed_str = time_elapsed.toString("HH:mm:ss:zzz")
         else:
             time_elapsed_str = time_elapsed.toString("mm:ss:zzz")
-            
         current_time = QtCore.QTime.currentTime()
         current_time_str = current_time.toString(QtCore.QString("HH:mm:ss:zzz"))     
         if not event_opt:

@@ -5,6 +5,7 @@ Created on Fri Mar 25 10:45:40 2016
 @author: deudon
 """
 import os
+import logging
 import random
 import numpy as np
 from PyQt4 import QtCore
@@ -570,6 +571,7 @@ def createrandomsequence_test(n_target_obj1, n_target_obj2, n_target_obj3, novel
 
             if time_watch.elapsed() > 5:
                 algo_stuck = True
+                # logging.info('createrandomsequence_test - stuck')
                 print 'Im stuck !!!'
                 break
 
@@ -587,5 +589,4 @@ if __name__ == '__main__':
                 ['dino_kilu', 'monstre_vert_pite', 'ours_guessa'], 'explicit', load_soft_rules('explicit'))
     s.create_train_sequence('fam')
     s.create_test_sequence('new')
-    # print(s)
 

@@ -4,6 +4,7 @@ Created on Wed Mar 30 10:27:42 2016
 
 @author: deudon
 """
+import logging
 import os
 from random import randint
 import time
@@ -31,8 +32,9 @@ class ClickableImage(QtGui.QLabel):
     # signal
     clicked_sig = QtCore.pyqtSignal(int)
 
-    def __init__(self, image_path, pos, black_background, wait_image):
+    def __init__(self, image_path, pos, black_background, wait_image, fullscreen):
         """ Load the image, put it in the label """
+        self.fullscreen = fullscreen
         QtGui.QLabel.__init__(self)
         self.image = QtGui.QImage()
         self.image.load(image_path)
@@ -44,7 +46,7 @@ class ClickableImage(QtGui.QLabel):
         size_policy_im = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Maximum)
         # Resize the wait_image so that it keeps the same size whatever the screen resolution is
         if wait_image:
-            if self.isFullScreen():
+            if self.fullscreen:
                 screen_h = QDesktopWidget().screenGeometry().height()
             else:
                 screen_h = MAIN_WINDOW_HEIGHT
@@ -64,7 +66,7 @@ class ClickableImage(QtGui.QLabel):
         """ Load an image, rescale it and put it in the Qt label """
         self.image.load(image_path)                          # Load image
         pixmap = QtGui.QPixmap(self.image)            # Get pixmap
-        if self.isFullScreen():
+        if self.fullscreen:
             screenW = QDesktopWidget().screenGeometry().width()
         else:
             screenW = MAIN_WINDOW_WIDTH
@@ -158,8 +160,9 @@ class TestView(QtGui.QWidget):
     # test response sig arguments : RT,AssoPos1,AssoPos2,asso_target,asso_response,TargetPos,response_pos
     testing_over_sig = QtCore.pyqtSignal()
 
-    def __init__(self, n_objects=3):
+    def __init__(self, fullscreen, n_objects=3):
         # These attributes are set when the method setsubject is called
+        self.fullscreen = fullscreen
         self.subject = []
         self.n_objects = n_objects
         self.n_trials = []
@@ -175,7 +178,7 @@ class TestView(QtGui.QWidget):
         layout.setContentsMargins(20, 20, 20, 20)
 
         # Get the height of the widget
-        screen_h = QDesktopWidget().screenGeometry().height() if self.isFullScreen() else MAIN_WINDOW_HEIGHT
+        screen_h = QDesktopWidget().screenGeometry().height() if fullscreen else MAIN_WINDOW_HEIGHT
                 
         # Top Horizontal Layout (with Home Button)
         top_hori_layout = QtGui.QHBoxLayout()
@@ -201,16 +204,16 @@ class TestView(QtGui.QWidget):
         self.stacked_widget.setMaximumHeight(0.9*screen_h)
         # Fill the central stacked widget
         # Wait image 
-        wait_image = ClickableImage(TEST_WAIT_IM_PATH, -1, False, True)
+        wait_image = ClickableImage(TEST_WAIT_IM_PATH, -1, False, True, self.fullscreen)
         wait_image.clicked_sig.connect(self.wait_image_clicked)
         self.stacked_widget.addWidget(wait_image)
         # Images widget
-        images_widget, self.im_list = create_images_widget(screen_h)
+        images_widget, self.im_list = create_images_widget(screen_h, self.fullscreen)
         self.stacked_widget.addWidget(images_widget)
         # Phonon audio player
-        self.audioOuput = Phonon.AudioOutput(Phonon.MusicCategory)
+        self.audio_output = Phonon.AudioOutput(Phonon.MusicCategory)
         self.audio_media = Phonon.MediaObject()
-        Phonon.createPath(self.audio_media, self.audioOuput)
+        Phonon.createPath(self.audio_media, self.audio_output)
         # Animation Phonon video player
         self.animation_player, animation_widget = create_animation_widget(screen_h)
         self.animation_player.finished.connect(self.animation_finished)
@@ -266,8 +269,9 @@ class TestView(QtGui.QWidget):
         else:
             self.stacked_widget.setCurrentIndex(0)
             for i in range(self.n_objects):
-                self.im_list[i].clicked_sig.connect(self.test_image_clicked)
-                self.im_list[i].set_reactivity(1)
+                if not self.im_list[i].is_reactive:
+                    self.im_list[i].clicked_sig.connect(self.test_image_clicked)
+                    self.im_list[i].set_reactivity(1)
 
     def set_condition(self, condition):
         condition = condition.lower()
@@ -418,6 +422,7 @@ class TestView(QtGui.QWidget):
             - else set up next trial
             - Switch and play animation
         """
+        logging.debug('next_trial - i_trial = {}'.format(self.i_trial))
         if self.condition in ['simon_train_fam', 'simon-easy_train_fam', 'simon_train_new', 'simon-easy_train_new']:
             self.feedback_timer.timeout.disconnect()
         elif self.condition not in ['scrambled-2y_train_fam', 'scrambled-2y_train_new', 'scrambled-4y_train_fam', 'scrambled-4y_train_new']:
@@ -425,6 +430,7 @@ class TestView(QtGui.QWidget):
             try:
                 self.repeat_timer.timeout.disconnect()
             except:
+                logging.debug('repeat_timer already disconnected')
                 print('repeat_timer already disconnected')
         # If visual response disconnect next trial timer
         if self.response_ver == 'visual':
@@ -478,6 +484,7 @@ class TestView(QtGui.QWidget):
             try:
                 self.next_trial_timer.timeout.disconnect()
             except:
+                logging.debug('next_trial_timer already disconnected')
                 print('next_trial_timer already disconnected')
         # Switch to the test images
         self.stacked_widget.setCurrentIndex(1)
@@ -501,6 +508,8 @@ class TestView(QtGui.QWidget):
                     (self.condition in ['fast-mapping_train_new'] and self.soft_rules['WAIT_GOOD_RESPONSE_TRAIN_NEW']):
                 if not good_response:
                     return
+            # for i in range(self.n_objects):
+            #     self.im_list[i].clicked_sig.disconnect()
             self.sendresponse(response_pos, reaction_time)
             # Set next trial
             if self.version in ['explicit', 'scrambled-2y', 'scrambled-4y', 'fast-mapping', 'explicit-1rep']:
@@ -513,6 +522,7 @@ class TestView(QtGui.QWidget):
                 else:
                     self.setnexttrial()
         else:
+            logging.debug('Response too early')
             print "Response too early"
 
     def send_feedback(self, correct_response, obj_target):
@@ -531,7 +541,7 @@ class TestView(QtGui.QWidget):
         self.audio_media.play()
 
     def set_image_feedback(self, correct_response):
-        screen_h = QDesktopWidget().screenGeometry().height() if self.isFullScreen() else MAIN_WINDOW_HEIGHT
+        screen_h = QDesktopWidget().screenGeometry().height() if self.fullscreen else MAIN_WINDOW_HEIGHT
         if correct_response:
             self.im_feedback.setPixmap(QtGui.QPixmap(IM_POSITIF_FEEDBACK).scaledToHeight(int(screen_h*IMAGE_FEEDBACK_PROP_H)))
             # self.im_feedback.setPixmap(QtGui.QPixmap(IM_POSITIF_FEEDBACK))
@@ -547,7 +557,7 @@ class TestView(QtGui.QWidget):
             im_target = os.path.join(IMAGE_FAM_DIR, '{}{}'.format(obj_target, IMAGE_FORMAT))
         elif 'new' in self.condition:
             im_target = os.path.join(IMAGE_NEW_DIR, '{}{}'.format(obj_target, IMAGE_FORMAT))
-        screen_h = QDesktopWidget().screenGeometry().height() if self.isFullScreen() else MAIN_WINDOW_HEIGHT
+        screen_h = QDesktopWidget().screenGeometry().height() if self.fullscreen else MAIN_WINDOW_HEIGHT
         self.im_feedback.setPixmap(QtGui.QPixmap(im_target).scaledToHeight(int(screen_h*0.4)))
         self.audio_media.setCurrentSource(Phonon.MediaSource(CORRECT_IM_SHOW_AUDIOPATH))
         self.audio_media.play()
@@ -600,6 +610,7 @@ class TestView(QtGui.QWidget):
         There is no wait image for visual condition.
         If tactile condition, start next trial.
         """
+        logging.debug("wait Image clicked - Start test trial")
         print "wait Image clicked - Start test trial"
         # if self.response_ver == 'visual':
         #     self.next_trial_timer.timeout.connect(self.setnexttrial)
@@ -621,12 +632,12 @@ class TestView(QtGui.QWidget):
                                     target_pos, response_pos)
 
 
-def create_images_widget(screen_h):
+def create_images_widget(screen_h, fullscreen):
     # Images widget
     images_widget = QtGui.QWidget()
-    im1 = ClickableImage(TRAIN_WAIT_IMAGE, 1, True, False)
-    im2 = ClickableImage(TRAIN_WAIT_IMAGE, 2, True, False)
-    im3 = ClickableImage(TRAIN_WAIT_IMAGE, 3, True, False)
+    im1 = ClickableImage(TRAIN_WAIT_IMAGE, 1, True, False, fullscreen)
+    im2 = ClickableImage(TRAIN_WAIT_IMAGE, 2, True, False, fullscreen)
+    im3 = ClickableImage(TRAIN_WAIT_IMAGE, 3, True, False, fullscreen)
     # Layout for test images
     image_layout = QVBoxLayout()
     im_top_layout = QHBoxLayout()

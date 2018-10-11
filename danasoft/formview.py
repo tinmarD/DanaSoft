@@ -198,7 +198,6 @@ class FormView(QtGui.QWidget):
         else:
             self.fam_obj3_cb.setStyleSheet("QComboBox {color:black}")
 
-        # print('A')
         # New Objects
         obj_new1_str = str(self.new_object1_ledit.text())
         obj_new2_str = str(self.new_object2_ledit.text())

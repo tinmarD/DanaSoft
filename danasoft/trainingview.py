@@ -6,6 +6,7 @@ Created on Wed Mar 23 16:31:49 2016
 """
 
 import os
+import logging
 import time
 import random
 from PyQt4 import QtGui, QtCore
@@ -91,7 +92,7 @@ class TrainingView(QWidget):
     training_over_sig = QtCore.pyqtSignal(str)
     video_start_sig = QtCore.pyqtSignal(int, str)  # Emitted when video starts (vid_num, vid_name)
 
-    def __init__(self):
+    def __init__(self, fullscreen):
         self.subject = []
         self.condition = []
         self.soft_rules = []
@@ -101,7 +102,7 @@ class TrainingView(QWidget):
         self.setLayout(layout)
         layout.setContentsMargins(20, 20, 20, 20)
         
-        if self.isFullScreen():
+        if fullscreen:
             screen_H = QDesktopWidget().screenGeometry().height()
         else:
             screen_H = MAIN_WINDOW_HEIGHT
@@ -168,6 +169,7 @@ class TrainingView(QWidget):
     def loadmedia(self, media_path):
         media = Phonon.MediaSource(media_path)
         if media.type() == 1:
+            logging.error('Invalid Media Source: {}'.format(media_path))
             print('Invalid Media Source: {}'.format(media_path))
         else:
             self.vid_player.load(media)
@@ -193,10 +195,12 @@ class TrainingView(QWidget):
         n_trials_fam = self.soft_rules['N_REPET_OBJ_TRAIN_FAM_1'] + self.soft_rules['N_REPET_OBJ_TRAIN_FAM_2'] + self.soft_rules['N_REPET_OBJ_TRAIN_FAM_3']
         n_trials_new = self.soft_rules['N_REPET_OBJ_TRAIN_NEW_1'] + self.soft_rules['N_REPET_OBJ_TRAIN_NEW_2'] + self.soft_rules['N_REPET_OBJ_TRAIN_NEW_3']
         if self.condition == "fam" and self.cur_vid_num == n_trials_fam:
+            logging.info('Training FAM over')
             print('Training FAM over')
             self.cur_vid_num = 0
             self.training_over_sig.emit("fam")
         elif self.condition == "new" and self.cur_vid_num == n_trials_new:
+            logging.info('Training NEW over')
             print('Training NEW over')
             self.cur_vid_num = 0
             self.training_over_sig.emit("new")
@@ -207,7 +211,6 @@ class TrainingView(QWidget):
             if self.condition == "fam":
                 vid_num = self.subject.train_vidorder_fam[self.cur_vid_num]  # get the training video number Fam
                 obj_name = self.subject.getobjectname(vid_num)[0]
-                print obj_name
                 vid_name = random_inst+'_'+obj_name+VIDEO_FORMAT
                 vid_path = os.path.join(VIDEO_FAM_DIR, obj_name, vid_name)
             # NEW

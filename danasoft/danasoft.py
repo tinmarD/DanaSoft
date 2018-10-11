@@ -7,13 +7,15 @@ from config import *
 
 # Log to a file called danasoft_20102018_10h42.log
 datetime_str = datetime.datetime.now().strftime('%d%m%Y-%Hh%M')
-logging.basicConfig(filename='danasoft_{}.log'.format(datetime_str), level=logging.DEBUG)
+logging.basicConfig(filename=os.path.join(LOG_DIR_PATH, 'danasoft_{}.log'.format(datetime_str)), level=logging.DEBUG,
+                    format='%(asctime)s.%(msecs)03d %(message)s {%(module)s} [%(funcName)s] ')
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(stream=sys.stdout)
 logger.addHandler(handler)
 
 
-# Logs uncaught exceptions to the log file
+# Logs uncaught exceptions to the log file, ignore KeyboardInterrupt
+# (see : StackOverflow - logging-uncaught-exceptions-in-python)
 def handle_exception(exc_type, exc_value, exc_traceback):
     if issubclass(exc_type, KeyboardInterrupt):
         sys.__excepthook__(exc_type, exc_value, exc_traceback)
@@ -28,9 +30,8 @@ def main(fullscreen, fill_subject):
     app = QApplication(sys.argv)
     # Create main window
     logging.info("DANASOFT - start")
-    window = MainWindow(app, fill_subject)
+    window = MainWindow(app, fullscreen, fill_subject)
     window.starttimer()
-    a = 'k' / 0
     if fullscreen:
         window.showFullScreen()
     else:

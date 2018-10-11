@@ -2,3 +2,5 @@ data/
 danasoft.eeg-info/
 build/
 dist/
+results_v3/
+log/

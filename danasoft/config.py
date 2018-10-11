@@ -8,14 +8,20 @@ import os
 
 SOFT_NAME = "Dana Soft"
 
-DATA_PATH = r'C:\Users\deudon\Desktop\M4\ProjetDanae\DanaSoft\data'
+DATA_PATH = r'C:\Users\deudon\Desktop\M4\ProjetDanae\DanaSoft\data\\'
+
+# Get root dir path - data directory should be placed on the DanaSoft root directory
+ROOT_DIR_PATH, tail = os.path.split(DATA_PATH)
+if not tail:
+    ROOT_DIR_PATH, _ = os.path.split(ROOT_DIR_PATH)
+LOG_DIR_PATH = os.path.join(ROOT_DIR_PATH, 'log')
+if not os.path.exists(LOG_DIR_PATH):
+    os.mkdir(LOG_DIR_PATH)
 
 ################ Soft Rules ##################
-
-# FULLSCREEN = 1        # If 1 fullscreen
 # Waiting time for visual mode
 TEST_CONTINUE_DELAY = 4000
-TEST_CONTINUE_DELAY_SCRAMBLED_2Y = 9500
+TEST_CONTINUE_DELAY_SCRAMBLED_2Y = 5600
 TEST_CONTINUE_DELAY_SCRAMBLED_4Y = 4500
 # If not fullscreen, dimensions of the main window
 MAIN_WINDOW_WIDTH = 800         # Must be inferior to the screen resolution width
@@ -79,9 +85,8 @@ CORRECT_IM_SHOW_MS = 2000
 CORRECT_IM_SHOW_AUDIOPATH = os.path.join(DATA_PATH, 'feedback_audio', 'cetaitlui.wav')
 CORRECT_IM_HEIGHT = 300
 
-
 # Files 
-RESULTS_DIR = os.path.join('..', 'results_v3')
+RESULTS_DIR = os.path.join(ROOT_DIR_PATH, 'results_v3')
 TIME_LOG_FILE_NAME = 'time_events.txt'
 RESULTS_FILE_NAME = 'test_results.txt'
 
