@@ -261,11 +261,15 @@ class TestView(QtGui.QWidget):
         self.response_ver = response_version
         if response_version == 'visual':
             self.next_trial_timer = QTimerWithPause()
-            self.stacked_widget.setCurrentIndex(1)
             for i in range(self.n_objects):
                 if self.im_list[i].is_reactive:
                     self.im_list[i].clicked_sig.disconnect()
                     self.im_list[i].set_reactivity(0)
+            # If the version is a scrambled one, put the target to mimic the tactile fast-mapping version
+            if version in ['scrambled-2y', 'scrambled-4y']:
+                self.stacked_widget.setCurrentIndex(0)
+            else:
+                self.stacked_widget.setCurrentIndex(1)
         else:
             self.stacked_widget.setCurrentIndex(0)
             for i in range(self.n_objects):
@@ -346,7 +350,10 @@ class TestView(QtGui.QWidget):
         """
         self.animation_player.stop()
         if self.response_ver == 'visual':
-            self.starttrial()  # Start next trial
+            if self.version not in ['scrambled-2y', 'scrambled-4y']:
+                self.starttrial()  # Start next trial
+            else:
+                self.stacked_widget.setCurrentIndex(0)
         else:
             self.stacked_widget.setCurrentIndex(0)
         self.setanimation()

@@ -150,7 +150,7 @@ class MainWindow(QMainWindow):
                 self.test_view.setimages()
                 self.test_view.setanimation()
                 self.stacked_widget.setCurrentIndex(GUI_TEST)
-                if self.response_ver == 'visual':
+                if self.response_ver == 'visual' and self.version not in ['scrambled-2y', 'scrambled-4y']:
                     self.test_view.starttrial()
         else:
             raise ValueError('Wrong novelty : {} - Possibles values are [\'fam\' or \'new\']')

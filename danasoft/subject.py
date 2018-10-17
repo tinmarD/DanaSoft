@@ -97,7 +97,7 @@ class Subject:
                                               self.soft_rules['SAME_TARGET_TEST_MAX_ROW'], self.soft_rules['SAME_TARGET_TEST_MAX_ROW'])
             elif novelty == 'new':
                 self.train_objinpos_new, self.train_posofobj_new, self.train_objtarget_new, self.train_posoftarget_new = \
-                    createrandomsequence_train_fastmapping_new(self.soft_rules)
+                    createrandomsequence_fastmapping_trainnew(self.soft_rules)
         elif self.version in ['scrambled-2y', 'scrambled-4y', 'simon', 'simon-easy']:
             if novelty == 'fam':
                 self.train_objinpos_fam, self.train_posofobj_fam, self.train_objtarget_fam, self.train_posoftarget_fam = \
@@ -106,7 +106,7 @@ class Subject:
                                               self.soft_rules['SAME_TARGET_TEST_MAX_ROW'], self.soft_rules['SAME_TARGET_TEST_MAX_ROW'])
             elif novelty == 'new':
                 self.train_objinpos_new, self.train_posofobj_new, self.train_objtarget_new, self.train_posoftarget_new = \
-                    createrandomsequence_train_fastmapping_new(self.soft_rules)
+                    createrandomsequence_scrambled_trainnew(self.soft_rules)
 
     def getobjectinpos(self, pos, i_trial, condition):
         if condition.lower() == 'test_fam':
@@ -298,14 +298,14 @@ def createrandomsequence_train(novelty, sr):
     return train_vid_order.astype(int)
 
 
-def createrandomsequence_train_fastmapping_new(sr):
+def createrandomsequence_fastmapping_trainnew(sr):
     """ Use this function for creating the pseudo random sequence for the training on
     new objects using the fast-mapping approach
     """
     # n_trials = sr['N_REPET_OBJ_TRAIN_NEW_1'] + sr['N_REPET_OBJ_TRAIN_NEW_2'] + sr['N_REPET_OBJ_TRAIN_NEW_3'] + \
     #            sr['N_REPET_OBJ_TRAIN_NEW_FAM_1'] + sr['N_REPET_OBJ_TRAIN_NEW_FAM_2'] + sr['N_REPET_OBJ_TRAIN_NEW_FAM_3'
     # if not n_trials / 3 == n_trials / 3.0:
-    #     raise ValueError("ERROR in subject:createrandomsequence_train_fastmapping_new n_trials should be a multiple of 3")
+    #     raise ValueError("ERROR in subject:createrandomsequence_fastmapping_trainnew n_trials should be a multiple of 3")
     n_trials = sr['N_TRAIN_NEW']
 
     # Target criteria : new object are identified by positive number, fam objects by negative ones
@@ -383,104 +383,79 @@ def createrandomsequence_train_fastmapping_new(sr):
     return obj_in_pos.astype(int), pos_of_obj.astype(int), obj_target.astype(int), target_pos.astype(int)
 
 
-# def createrandomsequence_test(condition, sr):
-#     """ The conditions to be respected by the sequence are :
-#             - object cannot appear in the same position more than SAME_POS_TEST_MAX
-#             - target cannot be the same more than SAME_TARGET_TEST_MAX times in a row
-#             - target cannot appear at the same position more than SAME_TARGET_POS_TEST_MAX times
-#             - if the number of test is even, check that the two halves of the sequence are different
-#
-#     """
-#     condition = condition.lower()
-#     if condition == 'fam':
-#         n_test_condition = sr['N_TEST_FAM']
-#         same_target_pos_test_max = sr['SAME_TARGET_POS_TEST_MAX_FAM']
-#     elif condition == 'new':
-#         n_test_condition = sr['N_TEST_NEW']
-#         same_target_pos_test_max = sr['SAME_TARGET_POS_TEST_MAX_NEW']
-#     elif condition in ['fast-mapping_train_fam', 'simon_train_fam', 'simon-easy_train_fam']:
-#         n_test_condition = sr['N_TRAIN_FAM']
-#         same_target_pos_test_max = sr['SAME_TARGET_POS_TEST_MAX_FAM']
-#     elif condition in ['simon_train_new', 'simon-easy_train_new']:
-#         n_test_condition = sr['N_TEST_NEW']
-#         same_target_pos_test_max = sr['SAME_TARGET_POS_TEST_MAX_NEW']
-#
-#     if not n_test_condition/3 == n_test_condition/3.0:
-#         print ("ERROR in subject:createrandomsequence N_TEST_FAM and N_TEST_NEW must be multiples of 3")
-#         return
-#
-#     # Use a timer to see if the algo is stuck
-#     time_watch = QtCore.QTime()
-#     algo_stuck = True
-#     while algo_stuck:
-#         algo_stuck = False
-#         pos_possibilities = np.array([[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]])
-#         same_pos_condition = False
-#         obj_in_pos = np.zeros((n_test_condition, 3), dtype=int)
-#         while not same_pos_condition:
-#             # Shuffle
-#             for i in range(0, n_test_condition):
-#                 obj_in_pos[i] = pos_possibilities[np.random.randint(6)]
-#
-#             # Check condition for position: object cannot appear in the same position more than SAME_POS_TEST_MAX times in a row
-#             same_pos = np.ones(3, dtype=int)
-#             for i in range(0, n_test_condition):
-#                 for j in range(0, 3):
-#                     same_pos[j] = same_pos[j] + 1 if obj_in_pos[i, j] == obj_in_pos[i-1, j] else 1
-#                 if np.max(same_pos) > sr['SAME_POS_ROW_TEST_MAX']:
-#                     same_pos_condition = False
-#                     break
-#                 else:
-#                     same_pos_condition = True
-#
-#         time_watch.start()
-#         # Associate a target for each trial
-#         obj_target = np.repeat(np.array([1, 2, 3]), n_test_condition/3)
-#         pos_of_target = np.zeros(n_test_condition, dtype=int)
-#         target_conditions = False
-#         while not target_conditions:
-#             np.random.shuffle(obj_target)
-#             # Get position of the target given the position of each object
-#             pos_of_target = np.array([int(np.where(obj_in_pos[i] == obj_target[i])[0]) for i in range(n_test_condition)]) + 1
-#             # Check : Target's position cannot be the same more than SAME_TARGET_POS_TEST_MAX
-#             pos_of_target_count = np.array([np.sum(pos_of_target == i) for i in [1, 2, 3]])
-#             if pos_of_target_count.max() > same_target_pos_test_max:
-#                 target_conditions = False
-#             else:
-#                 # Check : Target cannot be the same more than SAME_TARGET_TEST_MAX_ROW time in a row
-#                 # Check : Target cannot appear at the position more than SAME_TARGET_POS_TEST_MAX_ROW
-#                 same_target_row, same_target_row_pos = 1, 1
-#                 for i in range(1, n_test_condition):
-#                     same_target_row = same_target_row+1 if obj_target[i-1] == obj_target[i] else 1
-#                     same_target_row_pos = same_target_row_pos+1 if pos_of_target[i-1] == pos_of_target[i] else 1
-#                     if same_target_row > sr['SAME_TARGET_TEST_MAX_ROW'] or same_target_row_pos > sr['SAME_TARGET_POS_TEST_MAX_ROW']:
-#                         target_conditions = False
-#                         break
-#                     target_conditions = True
-#
-#             # Condition 3: if number of test is even, check that the two halves of the sequence are different
-#             if n_test_condition/2 == n_test_condition/2.0:
-#                 if sum(obj_target[0:n_test_condition/2] == obj_target[n_test_condition/2:n_test_condition]) == n_test_condition/2:
-#                     target_conditions = False
-#
-#             if time_watch.elapsed() > 5:
-#                 algo_stuck = True
-#                 print 'Im stuck !!!'
-#                 break
-#
-#     if not target_conditions or not same_pos_condition:
-#         raise ValueError('Error in generating Test sequence')
-#     pos_of_obj = obj_in_pos
-#
-#     if 'fam' in condition:
-#         obj_in_pos = -obj_in_pos
-#         obj_target = -obj_target
-#
-#     return obj_in_pos.astype(int), pos_of_obj.astype(int), obj_target.astype(int), pos_of_target.astype(int)
+def createrandomsequence_scrambled_trainnew(sr):
+    """ Use this function for creating the pseudo random sequence for the training on
+    new objects using the fast-mapping approach
+    """
+    # Check number of trials is a multiple of 3
+
+    n_trials = sr['N_REPET_OBJ_TRAIN_NEW_1'] + sr['N_REPET_OBJ_TRAIN_NEW_2'] + sr['N_REPET_OBJ_TRAIN_NEW_3']
+    if not n_trials / 3 == n_trials / 3.0:
+        raise ValueError("ERROR in subject:createrandomsequence_train_fastmapping_new n_trials should be a multiple of 3")
+
+    # Target criteria : new object are identified by positive number, fam objects by negative ones
+    obj_target = np.hstack((1*np.ones(sr['N_REPET_OBJ_TRAIN_NEW_1']), 2*np.ones(sr['N_REPET_OBJ_TRAIN_NEW_2']),
+                            3*np.ones(sr['N_REPET_OBJ_TRAIN_NEW_3']))).astype(int)
+    target_condition_met = False
+    same_target = 1
+    while not target_condition_met:
+        np.random.shuffle(obj_target)
+        # First criteria : The first object (beeing repeted less than the others) must appears after the 2 others (and not in last position)
+        # if obj_target[0] != 1 and obj_target[-1] != 1:
+        if obj_target[-1] != 1 and np.unique(obj_target[:int(np.where(obj_target == 1)[0]+1)]).size == 3:
+            # Second criteria : Target cannot be the same in a row more than SAME_TARGET_TRAIN_MAX
+            for i in range(1, n_trials):
+                if obj_target[i] == obj_target[i - 1]:
+                    same_target += 1
+                else:
+                    same_target = 1
+                if same_target > sr['SAME_TARGET_TEST_MAX_ROW']:
+                    target_condition_met = False
+                    break
+                else:
+                    target_condition_met = True
+    # Position of the target
+    target_pos_condition_met = False
+    # Criteria: the target position cannot be the same more than SAME_TARGET_POS_TRAIN_MAX times in a row
+    while not target_pos_condition_met:
+        target_pos = np.ones(n_trials)
+        same_target_pos = 1
+        for i in range(0, n_trials):
+            target_pos[i] = np.random.randint(1, 4)
+        for i in range(1, n_trials):
+            if target_pos[i] == target_pos[i - 1]:
+                same_target_pos += 1
+            else:
+                same_target_pos = 1
+            if same_target_pos > sr['SAME_TARGET_POS_TEST_MAX_ROW']:
+                target_pos_condition_met = False
+                break
+            else:
+                target_pos_condition_met = True
+        target_pos_count = np.array([np.sum(target_pos == i) for i in [1, 2, 3]])
+        # Criteria : the target must appear the same number of times at each position
+        if target_pos_count.max() > (n_trials / 3):
+            target_pos_condition_met = False
+    # Now that we have the target and its position for each trial, choose randomly familiar objects as distractor
+    obj_in_pos = np.zeros((n_trials, 3))
+    pos_of_obj = np.zeros((n_trials, 3))
+    target_pos = target_pos.astype(int)
+    rand_fam_vect = -np.array([1, 2, 3])
+    for i in range(0, n_trials):
+        np.random.shuffle(rand_fam_vect)
+        for j in range(0, 3):
+            if (target_pos[i] - 1) == j:
+                # Set the target at the right position
+                obj_in_pos[i, j] = obj_target[i]
+            else:
+                obj_in_pos[i, j] = rand_fam_vect[j]
+
+    # Return
+    return obj_in_pos.astype(int), pos_of_obj.astype(int), obj_target.astype(int), target_pos.astype(int)
 
 
 def createrandomsequence_test(n_target_obj1, n_target_obj2, n_target_obj3, novelty, same_object_pos_max_row,
-                                same_target_max_row, same_target_pos_max_row):
+                              same_target_max_row, same_target_pos_max_row):
     """ Use this function for creating a test sequence (that can be used for training or testing), where 3 objects are
     presented.
     Conditions are :
