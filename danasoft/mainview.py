@@ -8,6 +8,7 @@ Created on Tue Mar 22 17:06:07 2016
 import os
 import logging
 import datetime
+import codecs
 from PyQt4 import QtCore
 from PyQt4.QtGui import *
 from startupview import StartupView
@@ -106,12 +107,12 @@ class MainWindow(QMainWindow):
         if self.subject:
             subject_dirpath = self.subject.result_dir
             # Time log file
-            self.time_log_file = open(os.path.join(subject_dirpath, TIME_LOG_FILE_NAME), 'w')
+            self.time_log_file = codecs.open(os.path.join(subject_dirpath, TIME_LOG_FILE_NAME), 'w', encoding='utf-8')
             # Add the time of the Application start
             self.time_log_file.write(SOFT_NAME+"\n"+str(self.app_date.toString("dd_MM_yy"))+"\n")
             logging.info(SOFT_NAME+"\n"+str(self.app_date.toString("dd_MM_yy"))+"\n")
             # Results file
-            self.result_file = open(os.path.join(subject_dirpath, RESULTS_FILE_NAME), 'w')
+            self.result_file = codecs.open(os.path.join(subject_dirpath, RESULTS_FILE_NAME), 'w', encoding='utf-8')
             self.result_file.write(SOFT_NAME+"\n"+str(self.app_date.toString("dd_MM_yy"))+"\n\n")
             self.result_file.write('AssoPos1,AssoPos2,AssoPos3,Cible,Reponse,Cible Pos,Reponse Pos,Temps Reaction (ms)\n')
 

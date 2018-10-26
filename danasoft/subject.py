@@ -7,6 +7,7 @@ Created on Fri Mar 25 10:45:40 2016
 import os
 import logging
 import random
+import codecs
 import numpy as np
 from PyQt4 import QtCore
 from config import *
@@ -45,7 +46,7 @@ class Subject:
         self.version = version
         self.soft_rules = soft_rules
         if n_objects not in [2, 3]:
-            raise ValueError('Wrong argument n_objects : {} - Must be either 2 or 3'.format(n_objects))
+            raise ValueError(u'Wrong argument n_objects : {} - Must be either 2 or 3'.format(n_objects))
         self.n_objects = n_objects
         self.result_dir = self.createresultdir()
         self.obj_fam = dict(zip(range(-1, -n_objects-1, -1), obj_fam_list))
@@ -62,10 +63,12 @@ class Subject:
         # For explicit version :
         self.train_vidorder_fam, self.train_vidorder_new = [], []
 
-    def __str__(self):
-        desc_str = '{} - Age : {} - Sex {} ans - {}\n'.format(self.name, self.age, self.sex, self.date)
-        desc_str += 'Familiar objects : {}\n'.format(self.obj_fam)
-        desc_str += 'New associations : {}'.format(self.asso_new)
+    def __unicode__(self):
+        desc_str = u'{} - Age : {} - Sex {} ans - {}\n'.format(self.name, self.age, self.sex, self.date)
+        desc_str += u'Familiar objects : {}\n'.format(self.obj_fam)
+        desc_str += u'New associations : {}'.format(self.asso_new)
+        if not isinstance(desc_str, unicode):
+            desc_str = unicode(desc_str, 'utf-8')
         return desc_str
 
     def create_test_sequence(self, novelty):
@@ -153,88 +156,88 @@ class Subject:
         elif condition in ['fast-mapping_train_new', 'scrambled-2y_train_new', 'scrambled-4y_train_new', 'simon_train_new', 'simon-easy_train_new']:
             target_num = self.train_objtarget_new[i_trial]
         else:
-            raise ValueError('Wrong condition : {} - Possibles values are [\'fam\' or \'new\']')
+            raise ValueError('Wrong condition : {} - Possibles values are [\'fam\' or \'new\']'.format(condition))
         target_name = self.getobjectname(target_num)[0]
         return target_num, target_name
 
     def write_train_sequence(self, novelty):
-        filepath = os.path.join(self.result_dir, str(self.name)+'.txt')
-        with open(filepath, 'a') as f:
+        filepath = os.path.join(self.result_dir, unicode(self.name)+'.txt')
+        with codecs.open(filepath, 'a', encoding='utf-8') as f:
             if novelty == 'fam':
-                f.write('\n\n------- Training Parameters Fam-------')
+                f.write(u'\n\n------- Training Parameters Fam-------')
                 if self.version in ['explicit', 'explicit-1rep']:
-                    f.write('\nTraining video order FAM,')
+                    f.write(u'\nTraining video order FAM,')
                     np.savetxt(f, self.train_vidorder_fam, '%d', ' ', ';')
                 else:
-                    f.write('\nObject at each position FAM,')
+                    f.write(u'\nObject at each position FAM,')
                     np.savetxt(f, self.train_objinpos_fam, '%d', ' ', ';')
-                    f.write('\nPosition of the 3 objects FAM,')
+                    f.write(u'\nPosition of the 3 objects FAM,')
                     np.savetxt(f, self.train_posofobj_fam, '%d', ' ', ';')
-                    f.write('\nTarget object FAM,')
+                    f.write(u'\nTarget object FAM,')
                     np.savetxt(f, self.train_objtarget_fam, '%d', ' ', ';')
-                    f.write('\nPosition of target object FAM,')
+                    f.write(u'\nPosition of target object FAM,')
                     np.savetxt(f, self.train_posoftarget_fam, '%d', ' ', ';')
             elif novelty == 'new':
-                f.write('\n\n------- Training Parameters New-------')
+                f.write(u'\n\n------- Training Parameters New-------')
                 if self.version in ['explicit', 'explicit-1rep']:
-                    f.write('\nTraining video order FAM,')
+                    f.write(u'\nTraining video order FAM,')
                     np.savetxt(f, self.train_vidorder_new, '%d', ' ', ';')
                 else:
-                    f.write('\nObject at each position NEW,')
+                    f.write(u'\nObject at each position NEW,')
                     np.savetxt(f, self.train_objinpos_new, '%d', ' ', ';')
-                    f.write('\nPosition of the 3 objects NEW,')
+                    f.write(u'\nPosition of the 3 objects NEW,')
                     np.savetxt(f, self.train_posofobj_new, '%d', ' ', ';')
-                    f.write('\nTarget object NEW,')
+                    f.write(u'\nTarget object NEW,')
                     np.savetxt(f, self.train_objtarget_new, '%d', ' ', ';')
-                    f.write('\nPosition of target object NEW,')
+                    f.write(u'\nPosition of target object NEW,')
                     np.savetxt(f, self.train_posoftarget_new, '%d', ' ', ';')
             else:
                 raise ValueError('Wrong argument novelty : {}'.format(novelty))
 
     def write_test_sequence(self, novelty):
-        filepath = os.path.join(self.result_dir, str(self.name)+'.txt')
-        with open(filepath, 'a') as f:
+        filepath = os.path.join(self.result_dir, unicode(self.name)+'.txt')
+        with codecs.open(filepath, 'a', encoding='utf-8') as f:
             if novelty == 'fam':
-                f.write('\n\n------- Test Parameters Fam-------')
-                f.write('\nObject at each position FAM,')
+                f.write(u'\n\n------- Test Parameters Fam-------')
+                f.write(u'\nObject at each position FAM,')
                 np.savetxt(f, self.test_objinpos_fam, '%d', ' ', ';')
-                f.write('\nPosition of the 3 objects FAM,')
+                f.write(u'\nPosition of the 3 objects FAM,')
                 np.savetxt(f, self.test_posofobj_fam, '%d', ' ', ';')
-                f.write('\nTarget object FAM,')
+                f.write(u'\nTarget object FAM,')
                 np.savetxt(f, self.test_objtarget_fam, '%d', ' ', ';')
-                f.write('\nPosition of target object FAM,')
+                f.write(u'\nPosition of target object FAM,')
                 np.savetxt(f, self.test_posoftarget_fam, '%d', ' ', ';')
             elif novelty == 'new':
-                f.write('\n\n------- Test Parameters New-------')
-                f.write('\nObject at each position NEW,')
+                f.write(u'\n\n------- Test Parameters New-------')
+                f.write(u'\nObject at each position NEW,')
                 np.savetxt(f, self.test_objinpos_new, '%d', ' ', ';')
-                f.write('\nPosition of the 3 objects NEW,')
+                f.write(u'\nPosition of the 3 objects NEW,')
                 np.savetxt(f, self.test_posofobj_new, '%d', ' ', ';')
-                f.write('\nTarget object NEW,')
+                f.write(u'\nTarget object NEW,')
                 np.savetxt(f, self.test_objtarget_new, '%d', ' ', ';')
-                f.write('\nPosition of target object NEW,')
+                f.write(u'\nPosition of target object NEW,')
                 np.savetxt(f, self.test_posoftarget_new, '%d', ' ', ';')
             else:
                 raise ValueError('Wrong argument novelty : {}'.format(novelty))
 
     def exporttotxt(self, filepath):
-        with open(filepath, 'w') as f:
-            f.write('Name,{}\nAge,{}\nSex,{}\nDate,{}\n'.format(self.name, self.age, self.sex, self.date))
+        with codecs.open(filepath, 'w', encoding='utf-8') as f:
+            f.write(u'Name,{}\nAge,{}\nSex,{}\nDate,{}\n'.format(self.name, self.age, self.sex, self.date))
             for i in range(self.n_objects):
-                f.write('Familiar Object #{},{}\n'.format(i+1, self.obj_fam.values()[i]))
+                f.write(u'Familiar Object #{},{}\n'.format(i+1, self.obj_fam.values()[i]))
             for i in range(self.n_objects):
-                f.write('New Object #{},{}\n'.format(i + 1, self.asso_new.values()[i]))
+                f.write(u'New Object #{},{}\n'.format(i + 1, self.asso_new.values()[i]))
 
     def createresultdir(self):
         # Create a folder in the results directory based on the name of the subject and the current date
         date = QtCore.QDate.currentDate()
-        date_str = date.toString('dd_MM_yy')
+        date_str = unicode(date.toString('dd_MM_yy').toUtf8(), 'utf-8')
         if not os.path.isdir(RESULTS_DIR):
             os.mkdir(RESULTS_DIR)
-        dir_path = os.path.join(RESULTS_DIR, str(self.name)+'_'+str(date_str))
+        dir_path = os.path.join(RESULTS_DIR, self.name+'_'+date_str)
         inc = 2
         while os.path.isdir(dir_path):
-            dir_path = dir_path + '_' + str(inc) if inc == 2 else dir_path[0:-len(str(inc-1))]+str(inc)
+            dir_path = dir_path + u'_' + unicode(inc) if inc == 2 else dir_path[0:-len(unicode(inc-1))]+unicode(inc)
             inc += 1
         os.mkdir(dir_path)
         return dir_path
@@ -571,11 +574,3 @@ def createrandomsequence_test(n_target_obj1, n_target_obj2, n_target_obj3, novel
         obj_in_pos = -obj_in_pos
         obj_target = -obj_target
     return obj_in_pos.astype(int), pos_of_obj.astype(int), obj_target.astype(int), target_pos.astype(int)
-
-
-if __name__ == '__main__':
-    s = Subject('oko', 2, 'f', 'today', 3, ['toupie', 'voiture', 'aaa'],
-                ['dino_kilu', 'monstre_vert_pite', 'ours_guessa'], 'explicit', load_soft_rules('explicit'))
-    s.create_train_sequence('fam')
-    s.create_test_sequence('new')
-

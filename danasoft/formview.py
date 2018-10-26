@@ -176,16 +176,16 @@ class FormView(QtGui.QWidget):
    
     def checksubjectinfo(self):
         err = False
-        age_str, sex_str = str(self.age_ledit.text()), str(self.sex_ledit.text()).upper()
+        age_str, sex_str = unicode(self.age_ledit.text().toUtf8(), 'utf-8'), unicode(self.sex_ledit.text().toUtf8(), 'utf-8').upper()
         if sex_str in ["M", "F"]:
             self.sex_ledit.setStyleSheet("QLineEdit {color:black}")
         else:
             self.sex_ledit.setStyleSheet("QLineEdit {color:red}")
             err = True           
         # Fam Objects 
-        obj_fam1_str = str(self.fam_obj1_cb.currentText())
-        obj_fam2_str = str(self.fam_obj2_cb.currentText())
-        obj_fam3_str = str(self.fam_obj3_cb.currentText())
+        obj_fam1_str = unicode(self.fam_obj1_cb.currentText().toUtf8(), 'utf-8')
+        obj_fam2_str = unicode(self.fam_obj2_cb.currentText().toUtf8(), 'utf-8')
+        obj_fam3_str = unicode(self.fam_obj3_cb.currentText().toUtf8(), 'utf-8')
         # Chech the 3 fam objects are different
         if obj_fam1_str == obj_fam2_str:
             self.fam_obj2_cb.setStyleSheet("QComboBox {color:red}")
@@ -199,9 +199,9 @@ class FormView(QtGui.QWidget):
             self.fam_obj3_cb.setStyleSheet("QComboBox {color:black}")
 
         # New Objects
-        obj_new1_str = str(self.new_object1_ledit.text())
-        obj_new2_str = str(self.new_object2_ledit.text())
-        obj_new3_str = str(self.new_object3_ledit.text())
+        obj_new1_str = unicode(self.new_object1_ledit.text().toUtf8(), 'utf-8')
+        obj_new2_str = unicode(self.new_object2_ledit.text().toUtf8(), 'utf-8')
+        obj_new3_str = unicode(self.new_object3_ledit.text().toUtf8(), 'utf-8')
         
         # All the new pseudo-object/pseudo-word pairs
         new_asso_pairs = [None]*(len(NEW_OBJECT_LIST)*len(NEW_WORD_LIST))
@@ -240,12 +240,12 @@ class FormView(QtGui.QWidget):
             self.new_object3_ledit.setStyleSheet("QLineEdit {color:black}")
             
         # Check that each new pseudo-object is different
-        obj_new1_str_split = obj_new1_str.split('_')
-        obj_new2_str_split = obj_new2_str.split('_')
-        obj_new3_str_split = obj_new3_str.split('_')
-        pseudo_obj_1 = '_'.join(obj_new1_str_split[0:-1])
-        pseudo_obj_2 = '_'.join(obj_new2_str_split[0:-1])
-        pseudo_obj_3 = '_'.join(obj_new3_str_split[0:-1])
+        obj_new1_str_split = obj_new1_str.split(u'_')
+        obj_new2_str_split = obj_new2_str.split(u'_')
+        obj_new3_str_split = obj_new3_str.split(u'_')
+        pseudo_obj_1 = u'_'.join(obj_new1_str_split[0:-1])
+        pseudo_obj_2 = u'_'.join(obj_new2_str_split[0:-1])
+        pseudo_obj_3 = u'_'.join(obj_new3_str_split[0:-1])
         pseudo_word_1 = obj_new1_str_split[-1]
         pseudo_word_2 = obj_new2_str_split[-1]
         pseudo_word_3 = obj_new3_str_split[-1]
@@ -260,7 +260,8 @@ class FormView(QtGui.QWidget):
         else:
             self.new_object3_ledit.setStyleSheet("QLineEdit {color:black}")
 
-        name, date = self.sub_name_ledit.text(), self.date_ledit.text()
+        name, date = self.sub_name_ledit.text().toUtf8(), self.date_ledit.text().toUtf8()
+        name, date = unicode(name, 'utf-8'), unicode(date, 'utf-8')
         subject = Subject(name, age_str, sex_str, date, 3, [obj_fam1_str, obj_fam2_str, obj_fam3_str],
                           [obj_new1_str, obj_new2_str, obj_new3_str], self.version, self.soft_rules)
         return err, subject
@@ -268,9 +269,9 @@ class FormView(QtGui.QWidget):
     def finish_form(self):
         # Check validity of subject informations        
         err, subject = self.checksubjectinfo()
-        print(subject)
+        print(subject.__unicode__())
         if not err:
             # Save subject informations            
-            subject.exporttotxt(os.path.join(subject.result_dir, str(subject.name)+'.txt'))
+            subject.exporttotxt(os.path.join(subject.result_dir, subject.name + u'.txt'))
             # Start training
             self.form_over_sig.emit(subject)

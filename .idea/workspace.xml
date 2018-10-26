@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b1bdffe1-d6de-49ad-a5f9-541644efe3fc" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/danasoft/formview.py" afterPath="$PROJECT_DIR$/danasoft/formview.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/danasoft/mainview.py" afterPath="$PROJECT_DIR$/danasoft/mainview.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/danasoft/subject.py" afterPath="$PROJECT_DIR$/danasoft/subject.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/danasoft/testview.py" afterPath="$PROJECT_DIR$/danasoft/testview.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,7 +20,7 @@
       <file leaf-file-name="danasoft.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/danasoft/danasoft.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
+            <state relative-caret-position="17">
               <caret line="11" column="36" lean-forward="false" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
@@ -32,18 +32,18 @@
       <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/danasoft/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3026">
-              <caret line="178" column="39" lean-forward="false" selection-start-line="178" selection-start-column="39" selection-end-line="178" selection-end-column="39" />
+            <state relative-caret-position="17">
+              <caret line="126" column="49" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="subject.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="subject.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/danasoft/subject.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
-              <caret line="103" column="50" lean-forward="false" selection-start-line="103" selection-start-column="50" selection-end-line="103" selection-end-column="50" />
+            <state relative-caret-position="208">
+              <caret line="15" column="6" lean-forward="false" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
               <folding>
                 <element signature="e#85#94#0" expanded="true" />
               </folding>
@@ -51,12 +51,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mainview.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="mainview.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/danasoft/mainview.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="147" column="55" lean-forward="true" selection-start-line="147" selection-start-column="55" selection-end-line="147" selection-end-column="55" />
-              <folding />
+            <state relative-caret-position="157">
+              <caret line="99" column="50" lean-forward="false" selection-start-line="99" selection-start-column="50" selection-end-line="99" selection-end-column="50" />
+              <folding>
+                <element signature="e#86#95#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -64,10 +66,22 @@
       <file leaf-file-name="testview.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/danasoft/testview.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="337" column="8" lean-forward="false" selection-start-line="337" selection-start-column="8" selection-end-line="337" selection-end-column="8" />
+            <state relative-caret-position="947">
+              <caret line="280" column="37" lean-forward="false" selection-start-line="280" selection-start-column="37" selection-end-line="280" selection-end-column="37" />
               <folding>
                 <element signature="e#85#99#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="formview.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/danasoft/formview.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="267">
+              <caret line="262" column="18" lean-forward="false" selection-start-line="262" selection-start-column="14" selection-end-line="262" selection-end-column="18" />
+              <folding>
+                <element signature="e#87#118#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -77,26 +91,14 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>set_version</find>
-      <find>scra</find>
-      <find>scrambled</find>
-      <find>test_view.set_version</find>
-      <find>test_image_clicked</find>
-      <find>isFullsc</find>
-      <find>fullsc</find>
-      <find>isFullSCr</find>
-      <find>isFullSC</find>
-      <find>isFullSc</find>
       <find>isFullScre</find>
       <find>isFullScree</find>
       <find>isFullScreen</find>
       <find>isFull</find>
-      <find>write</find>
       <find>subject.result</find>
       <find>wait_image =</find>
       <find>exportto</find>
       <find>soft_rules</find>
-      <find>RESULTS_DIR</find>
       <find>createrandomsequence_train_fastmapp</find>
       <find>createrandomsequence_train_fastmapping_new</find>
       <find>'scrambled</find>
@@ -105,8 +107,20 @@
       <find>== 'visual'</find>
       <find>self.test_view</find>
       <find>self.stacked_widget.setCurrentIndex</find>
-      <find>self.test_view.set_version</find>
       <find>setimages</find>
+      <find>self.test_view.set_version</find>
+      <find>self.result</find>
+      <find>RESULTS_DIR</find>
+      <find>'</find>
+      <find>ope</find>
+      <find>err</find>
+      <find>s</find>
+      <find>str</find>
+      <find>str(</find>
+      <find>open</find>
+      <find>date</find>
+      <find>write</find>
+      <find>write(</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -119,21 +133,22 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/danasoft/formview.py" />
         <option value="$PROJECT_DIR$/danasoft/trainingview.py" />
         <option value="$PROJECT_DIR$/danasoft/danasoft.py" />
-        <option value="$PROJECT_DIR$/danasoft/config.py" />
-        <option value="$PROJECT_DIR$/danasoft/subject.py" />
         <option value="$PROJECT_DIR$/danasoft/testview.py" />
+        <option value="$PROJECT_DIR$/danasoft/config.py" />
+        <option value="$PROJECT_DIR$/danasoft/formview.py" />
+        <option value="$PROJECT_DIR$/results_v3/Bààcé_26_10_18/Bààcé.txt" />
         <option value="$PROJECT_DIR$/danasoft/mainview.py" />
+        <option value="$PROJECT_DIR$/danasoft/subject.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="116" />
-    <option name="y" value="82" />
-    <option name="width" value="1738" />
-    <option name="height" value="1059" />
+    <option name="x" value="200" />
+    <option name="y" value="4" />
+    <option name="width" value="1684" />
+    <option name="height" value="1160" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -150,6 +165,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -179,7 +195,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -288,19 +303,19 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="116" y="82" width="1738" height="1059" extended-state="0" />
+    <frame x="200" y="4" width="1684" height="1160" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20441002" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20689656" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33560312" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26400477" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32470334" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31614786" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17549261" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32371134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -338,7 +353,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/danasoft/subject.py</url>
-          <line>14</line>
+          <line>15</line>
         </line-breakpoint>
       </breakpoints>
       <option name="time" value="2" />
@@ -346,6 +361,84 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/danasoft/subject.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1751">
+          <caret line="103" column="50" lean-forward="false" selection-start-line="103" selection-start-column="50" selection-end-line="103" selection-end-column="50" />
+          <folding>
+            <element signature="e#85#94#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/danasoft/mainview.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2295">
+          <caret line="145" column="48" lean-forward="false" selection-start-line="145" selection-start-column="48" selection-end-line="145" selection-end-column="48" />
+          <folding>
+            <element signature="e#86#95#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/danasoft/testview.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5270">
+          <caret line="317" column="5" lean-forward="false" selection-start-line="317" selection-start-column="5" selection-end-line="317" selection-end-column="5" />
+          <folding>
+            <element signature="e#85#99#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/danasoft/danasoft.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="11" column="36" lean-forward="false" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/danasoft/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3026">
+          <caret line="178" column="39" lean-forward="false" selection-start-line="178" selection-start-column="39" selection-end-line="178" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/danasoft/subject.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1751">
+          <caret line="103" column="50" lean-forward="false" selection-start-line="103" selection-start-column="50" selection-end-line="103" selection-end-column="50" />
+          <folding>
+            <element signature="e#85#94#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/danasoft/mainview.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2295">
+          <caret line="145" column="48" lean-forward="true" selection-start-line="145" selection-start-column="48" selection-end-line="145" selection-end-column="48" />
+          <folding>
+            <element signature="e#86#95#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/danasoft/testview.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5610">
+          <caret line="337" column="8" lean-forward="false" selection-start-line="337" selection-start-column="8" selection-end-line="337" selection-end-column="8" />
+          <folding>
+            <element signature="e#85#99#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/danasoft/danasoft.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -621,13 +714,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/danasoft/formview.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4590">
-          <caret line="273" column="59" lean-forward="false" selection-start-line="273" selection-start-column="45" selection-end-line="273" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/danasoft/trainingview.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -635,9 +721,11 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://E:/config.py" />
+    <entry file="file://$PROJECT_DIR$/../../../DanaSoft11OCT1028/danasoft/subject.py" />
     <entry file="file://$PROJECT_DIR$/danasoft/danasoft.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
+        <state relative-caret-position="17">
           <caret line="11" column="36" lean-forward="false" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
@@ -645,48 +733,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://E:/config.py" />
-    <entry file="file://$PROJECT_DIR$/danasoft/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3026">
-          <caret line="178" column="39" lean-forward="false" selection-start-line="178" selection-start-column="39" selection-end-line="178" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../DanaSoft11OCT1028/danasoft/subject.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="369" column="0" lean-forward="false" selection-start-line="299" selection-start-column="0" selection-end-line="369" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/danasoft/subject.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="103" column="50" lean-forward="false" selection-start-line="103" selection-start-column="50" selection-end-line="103" selection-end-column="50" />
-          <folding>
-            <element signature="e#85#94#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/danasoft/testview.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="337" column="8" lean-forward="false" selection-start-line="337" selection-start-column="8" selection-end-line="337" selection-end-column="8" />
+        <state relative-caret-position="947">
+          <caret line="280" column="37" lean-forward="false" selection-start-line="280" selection-start-column="37" selection-end-line="280" selection-end-column="37" />
           <folding>
             <element signature="e#85#99#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/results_v3/Bààcé_26_10_18/Bààcé.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/danasoft_25102018-19h04.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="10" lean-forward="false" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/danasoft/mainview.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="147" column="55" lean-forward="true" selection-start-line="147" selection-start-column="55" selection-end-line="147" selection-end-column="55" />
+        <state relative-caret-position="157">
+          <caret line="99" column="50" lean-forward="false" selection-start-line="99" selection-start-column="50" selection-end-line="99" selection-end-column="50" />
+          <folding>
+            <element signature="e#86#95#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/danasoft/formview.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="262" column="18" lean-forward="false" selection-start-line="262" selection-start-column="14" selection-end-line="262" selection-end-column="18" />
+          <folding>
+            <element signature="e#87#118#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/danasoft/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="126" column="49" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/danasoft/subject.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="15" column="6" lean-forward="false" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+          <folding>
+            <element signature="e#85#94#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
