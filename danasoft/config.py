@@ -15,8 +15,6 @@ ROOT_DIR_PATH, tail = os.path.split(DATA_PATH)
 if not tail:
     ROOT_DIR_PATH, _ = os.path.split(ROOT_DIR_PATH)
 LOG_DIR_PATH = os.path.join(ROOT_DIR_PATH, 'log')
-if not os.path.exists(LOG_DIR_PATH):
-    os.mkdir(LOG_DIR_PATH)
 
 ################ Soft Rules ##################
 # Waiting time for visual mode

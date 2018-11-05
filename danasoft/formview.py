@@ -117,15 +117,15 @@ class FormView(QtGui.QWidget):
         
         # If full_subject is True, fill subject info
         if fill_subject:
-            self.sub_name_ledit.setText("Bob")
-            self.date_ledit.setText("15 Avr 2015")
-            self.age_ledit.setText("15 mois")
-            self.sex_ledit.setText("M")
+            self.sub_name_ledit.setText(u"Bob")
+            self.date_ledit.setText(u"15 Avr 2015")
+            self.age_ledit.setText(u"15 mois")
+            self.sex_ledit.setText(u"M")
             self.fam_obj2_cb.setCurrentIndex(1)
             self.fam_obj3_cb.setCurrentIndex(2)
-            self.new_object1_ledit.setText("dinosaure_orange_lupa")
-            self.new_object2_ledit.setText("ours_kilu")
-            self.new_object3_ledit.setText("monstre_vert_pite")
+            self.new_object1_ledit.setText(u"dinosaure_orange_lupa")
+            self.new_object2_ledit.setText(u"ours_kilu")
+            self.new_object3_ledit.setText(u"monstre_vert_pite")
 
         # Create subject button
         start_layout = QHBoxLayout()

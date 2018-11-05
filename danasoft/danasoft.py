@@ -5,6 +5,10 @@ from PyQt4.QtGui import QApplication
 from mainview import MainWindow
 from config import *
 
+
+if not os.path.exists(LOG_DIR_PATH):
+    os.mkdir(LOG_DIR_PATH)
+
 # Log to a file called danasoft_20102018_10h42.log
 datetime_str = datetime.datetime.now().strftime('%d%m%Y-%Hh%M')
 logging.basicConfig(filename=os.path.join(LOG_DIR_PATH, 'danasoft_{}.log'.format(datetime_str)), level=logging.DEBUG,
